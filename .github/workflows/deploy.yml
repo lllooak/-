@@ -1,0 +1,18 @@
+name: Deploy Function
+    on: # Corrected: 'on' should be at the same indentation level as 'name'
+      push:
+        branches:
+          - main
+      workflow_dispatch:
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        env:
+          SUPABASE_ACCESS_TOKEN: sbp_9863ff1d7ee7b2987f0b440aebd1600084d9a26c
+          PROJECT_ID: dzuuackiqvyyrvvfyrti
+        steps:
+          - uses: actions/checkout@v4
+          - uses: supabase/setup-cli@v1
+            with:
+              version: latest
+          - run: supabase functions deploy test --project-ref $PROJECT_ID
